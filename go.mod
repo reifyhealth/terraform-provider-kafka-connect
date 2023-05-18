@@ -9,3 +9,5 @@ require (
 )
 
 replace git.apache.org/thrift.git => github.com/apache/thrift v0.0.0-20180902110319-2566ecd5d999
+
+replace github.com/ricardo-ch/go-kafka-connect/v3 => github.com/reifyhealth/go-kafka-connect/v3 v3.0.0-20230518181202-8f1d07ac9315
