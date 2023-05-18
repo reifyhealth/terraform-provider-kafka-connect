@@ -31,7 +31,7 @@ func Provider() *schema.Provider {
 				DefaultFunc: schema.EnvDefaultFunc("KAFKA_CONNECT_BASIC_AUTH_PASSWORD", ""),
 			},
 			"timeout": {
-				Type:     schema.TypeFloat,
+				Type:     schema.TypeInt,
 				Optional: true,
 				Default:  10,
 			},
