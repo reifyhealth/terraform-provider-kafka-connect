@@ -3,6 +3,7 @@ package connect
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -29,6 +30,11 @@ func Provider() *schema.Provider {
 				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("KAFKA_CONNECT_BASIC_AUTH_PASSWORD", ""),
 			},
+			"timeout": {
+				Type:     schema.TypeInt,
+				Optional: true,
+				Default:  10,
+			},
 			"headers": {
 				Type: schema.TypeMap,
 				Elem: &schema.Schema{
@@ -52,6 +58,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	log.Printf("[INFO] Initializing KafkaConnect client")
 	addr := d.Get("url").(string)
 	c := kc.NewClient(addr)
+	c.SetTimeout(time.Duration(d.Get("timeout").(int)))
 	user := d.Get("basic_auth_username").(string)
 	pass := d.Get("basic_auth_password").(string)
 	if user != "" && pass != "" {
